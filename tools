@@ -73,7 +73,7 @@ dfAug = dfAug.select(col("_1").alias("Host"), col("_2").alias("Timestamp"),col("
 dfAug.show()
 
 dfJul = dfJul.select(col("_1").alias("Host"), col("_2").alias("Timestamp"),col("_3").alias("Requisicao"),col("_4").alias("retorno"),col("_5").alias("bytes"))
-dfJu.show()
+dfJul.show()
 
 #4- Quantidade de erros 404 por dia.
 
