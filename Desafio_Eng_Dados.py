@@ -1,34 +1,34 @@
-Questões Teoricas:
+QuestÃµes Teoricas:
 
 Qual o objetivo do comando cache em Spark?
-R: Performance. O Comando cache ajuda a melhorar a eficiência do código, permite que resultados intermediários de operações lazy 
+R: Performance. O Comando cache ajuda a melhorar a eficiÃªncia do cÃ³digo, permite que resultados intermediÃ¡rios de operaÃ§Ãµes lazy 
 possam ser armazenados e reutilizados repetidamente. 
 
-O mesmo código implementado em Spark é normalmente mais rápido que a implementação equivalente em MapReduce. Por quê?
-R: Sim. A principal diferença entre eles está no processamento: o Spark pode fazer isso na memória, 
-enquanto o Hadoop MapReduce precisa ler e gravar em um disco. Sendo 100 vezes mais rápido.
+O mesmo cÃ³digo implementado em Spark Ã© normalmente mais rÃ¡pido que a implementaÃ§Ã£o equivalente em MapReduce. Por quÃª?
+R: Sim. A principal diferenÃ§a entre eles estÃ¡ no processamento: o Spark pode fazer isso na memÃ³ria, 
+enquanto o Hadoop MapReduce precisa ler e gravar em um disco. Sendo 100 vezes mais rÃ¡pido.
 
-Qual é a função do SparkContext ?
-R: Tem a função principal é estabelecer conexão e várias operações paralelas nos nós de trabalho (Clusters). E coleta os resultados das operações. 
-Os nós de trabalho leem e gravam dados do Sistema de Arquivos Distribuído do Hadoop. Os nós de trabalho também armazenam dados transformados na memória em 
-cache com RDDs (Conjuntos de Dados Distribuído Resiliente).
+Qual Ã© a funÃ§Ã£o do SparkContext ?
+R: Tem a funÃ§Ã£o principal Ã© estabelecer conexÃ£o e vÃ¡rias operaÃ§Ãµes paralelas nos nÃ³s de trabalho (Clusters). E coleta os resultados das operaÃ§Ãµes. 
+Os nÃ³s de trabalho leem e gravam dados do Sistema de Arquivos DistribuÃ­do do Hadoop. Os nÃ³s de trabalho tambÃ©m armazenam dados transformados na memÃ³ria em 
+cache com RDDs (Conjuntos de Dados DistribuÃ­do Resiliente).
 
-Explique com suas palavras o que é Resilient Distributed Datasets (RDD)?
-R: É uma coleção de objetos, distribuída e imutável, cada conjunto de dado no RDD´s é dividido em partições logicas, que podem ser computadas 
-em diferentes nodes de cluster, RDD´s podem ser criadas a partir do Hadoop (arquivos no HDFS), através da transformação de outros RDD´s, 
-a partir de banco de dados (relacionais e não-relacionais) ou a partir de arquivos locais.
+Explique com suas palavras o que Ã© Resilient Distributed Datasets (RDD)?
+R: Ã‰ uma coleÃ§Ã£o de objetos, distribuÃ­da e imutÃ¡vel, cada conjunto de dado no RDDÂ´s Ã© dividido em partiÃ§Ãµes logicas, que podem ser computadas 
+em diferentes nodes de cluster, RDDÂ´s podem ser criadas a partir do Hadoop (arquivos no HDFS), atravÃ©s da transformaÃ§Ã£o de outros RDDÂ´s, 
+a partir de banco de dados (relacionais e nÃ£o-relacionais) ou a partir de arquivos locais.
 
-GroupByKey é menos eficiente que reduceByKey em grandes dataset. Por quê?
-R: groupByKey faz o agrupamento em conjunto de dados de pares. Agrupando para executar uma agregação sobre cada chave, 
-já o reduceByKey produzirá um desempenho muito melhor, pois retorna um conjunto de dados onde os valores para cada chave são agregados usando a função
+GroupByKey Ã© menos eficiente que reduceByKey em grandes dataset. Por quÃª?
+R: groupByKey faz o agrupamento em conjunto de dados de pares. Agrupando para executar uma agregaÃ§Ã£o sobre cada chave, 
+jÃ¡ o reduceByKey produzirÃ¡ um desempenho muito melhor, pois retorna um conjunto de dados onde os valores para cada chave sÃ£o agregados usando a funÃ§Ã£o
 reduce reduzida.
 
-Explique o que o código Scala abaixo faz ?
-R: Lê um arquivo especifico no HDFS, executa quebra de linha por espaço (" "), processa a contagem de palavras em MapReduce e salva o retorno (counts) em arquivo no HDFS.
+Explique o que o cÃ³digo Scala abaixo faz ?
+R: LÃª um arquivo especifico no HDFS, executa quebra de linha por espaÃ§o (" "), processa a contagem de palavras em MapReduce e salva o retorno (counts) em arquivo no HDFS.
 
-Questões na pratica PYSPARK:-
+QuestÃµes na pratica PYSPARK:-
 
-# 1- Número de hosts únicos.
+# 1- NÃºmero de hosts Ãºnicos.
 
 from pyspark import SparkContext, SparkConf
 sc = SparkContext.getOrCreate()
@@ -45,8 +45,6 @@ testcount = host.map(lambda x:(x,1)) \
 for word in testcount.collect():
     print(word)
 
-
-    
 fileJulRDD.map(lambda x: x[0]).distinct().count()
  # resultados: 81.983
 
@@ -70,16 +68,16 @@ from pyspark.sql.types import IntegerType
 dfAug = spark.createDataFrame(fileAugRDD)
 dfJul = spark.createDataFrame(fileJulRDD)
 
-# defineção de colunas 
+# defineÃ§Ã£o de colunas 
 dfAug = dfAug.select(col("_1").alias("Host"), col("_2").alias("Timestamp"),col("_3").alias("Requisicao"),col("_4").alias("retorno"),col("_5").alias("bytes"))
 dfAug.show()
 
 dfJul = dfJul.select(col("_1").alias("Host"), col("_2").alias("Timestamp"),col("_3").alias("Requisicao"),col("_4").alias("retorno"),col("_5").alias("bytes"))
-dfJu.show()
+dfJul.show()
 
 #4- Quantidade de erros 404 por dia.
 
-# converte a tabela p/ instrução SQL
+# converte a tabela p/ instruÃ§Ã£o SQL
 dfJul.createOrReplaceTempView('temp_Jul')
 dfAug.createOrReplaceTempView('temp_Aug')
 
