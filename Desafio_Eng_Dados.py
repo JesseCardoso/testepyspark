@@ -45,21 +45,19 @@ testcount = host.map(lambda x:(x,1)) \
 for word in testcount.collect():
     print(word)
 
+# 2- Total de erros 404.
+
 fileJulRDD.map(lambda x: x[0]).distinct().count()
- # resultados: 81.983
-
+#total distintos no arquivo Julho
 fileAugRDD.map(lambda x: x[0]).distinct().count()
- # resultados: 75.060
+#total distintos no arquivo Julho
 
-# 2- O total de erros 404.
 fileJulRDD.filter(lambda x: '404 -' in x).count()
- # resultados: 10.847
  
 fileAugRDD.filter(lambda x: '404 -' in x).count()
- # resultados: 10.058
 
 # 3- Os 5 URLs que mais causaram erro 404.
-
+# Bibliotecas e Classes necessárias para conversão file para tabela sql;
 from pyspark.sql.functions import *
 import pyspark.sql
 from pyspark.sql.types import IntegerType
@@ -81,8 +79,28 @@ dfJul.show()
 dfJul.createOrReplaceTempView('temp_Jul')
 dfAug.createOrReplaceTempView('temp_Aug')
 
-spSession.sql("select Host,retorno, count(retorno)as qtd from temp_Aug where retorno = '404 -' group by Host,retorno having count() order by qtd desc ").show()
-spSession.sql("select Host,retorno, count(retorno)as qtd from temp_Jul where retorno = '404 -' group by Host,retorno having count() order by qtd desc ").show()
+spSession.sql("select 
+                Host,retorno, count(retorno)as qtd from temp_Aug 
+              where 
+                retorno = '404 -' 
+              group by 
+                Host,retorno having count() 
+              order by 
+                qtd desc ").show()
+spSession.sql("select 
+                    Host,retorno, count(retorno)as qtd from temp_Jul 
+                where 
+                    retorno = '404 -' 
+                group by 
+                    Host,retorno having count() 
+                order by 
+                    qtd desc ").show()
 
 # 5- O total de bytes retornados
-spSession.sql("select bytes, sum(bytes) soma from temp_Aug group by bytes having count()").show()
+spSession.sql("select 
+                    bytes, sum(bytes) soma 
+                from 
+                    temp_Aug 
+                group by 
+                    bytes 
+                having count()").show()
